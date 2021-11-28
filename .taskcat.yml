@@ -1,0 +1,10 @@
+---
+project:
+  name: aws-ses-password-lambda
+  regions:
+    - ca-central-1
+  s3_bucket: brokentech-cfn
+
+tests:
+  default:
+    template: ./cdk.out/AwsSesPasswordLambda.template.json
