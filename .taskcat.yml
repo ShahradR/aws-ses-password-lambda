@@ -4,7 +4,11 @@ project:
   regions:
     - ca-central-1
   s3_bucket: brokentech-cfn
+  lambda_source_path: ./lambda
 
 tests:
   default:
     template: ./cdk.out/AwsSesPasswordLambda.template.json
+    parameters:
+      bucketName: brokentech-cfn
+      ObjectKey: aws-ses-password-lambda/lambda_functions/packages/ses-password-lambda/lambda.zip

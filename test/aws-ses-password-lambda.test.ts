@@ -33,7 +33,7 @@ describe("the AWS Lambda function", () => {
   it("references the correct JavaScript file and handler", () => {
     expectCDK(stack).to(
       haveResourceLike("AWS::Lambda::Function", {
-        Handler: "dist/index.handler",
+        Handler: "dist/src/index.handler",
       })
     );
   });
