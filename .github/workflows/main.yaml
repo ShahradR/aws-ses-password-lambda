@@ -80,7 +80,7 @@ jobs:
           node-version: 14
       - run: npm install -g aws-cdk typescript ts-node
       - run: npm install
-      - run: npm --prefix ./lambda/ses-password-lambda install
+      - run: npm --prefix ./lambda/ses-password-lambda install --production=true
       - run: npm run build
       - run: cdk synth "*" --context isTaskcatRun=true --output cdk.out
       - uses: actions/setup-python@v2
