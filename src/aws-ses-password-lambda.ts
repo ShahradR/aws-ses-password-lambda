@@ -23,9 +23,6 @@ export class AwsSesPasswordLambda extends cdk.Stack {
       code: codeSource,
       timeout: cdk.Duration.seconds(180),
       memorySize: 128,
-      environment: {
-        AWS_REGION: cdk.Aws.REGION,
-      },
       tracing: lambda.Tracing.PASS_THROUGH,
     });
   }

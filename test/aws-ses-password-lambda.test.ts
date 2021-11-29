@@ -63,13 +63,11 @@ describe("the AWS Lambda function", () => {
   });
 
   it("is passed the AWS region as an environment variables", () => {
-    expectCDK(stack).to(
+    expectCDK(stack).notTo(
       haveResourceLike("AWS::Lambda::Function", {
         Environment: {
           Variables: {
-            AWS_REGION: {
-              Ref: "AWS::Region",
-            },
+            AWS_REGION: anything(),
           },
         },
       })
