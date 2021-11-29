@@ -47,7 +47,9 @@ jobs:
         with:
           node-version: 12
       - run: npm install
+      - run: npm --prefix ./lambda/ses-password-lambda install
       - run: npm install -g aws-cdk typescript ts-node
+      - run: npm run build
       - run: cdk synth "*" --output cdk.out
       - uses: actions/upload-artifact@v2
         with:
@@ -73,10 +75,14 @@ jobs:
     needs: [cdk_synth]
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/download-artifact@v2
+      - uses: actions/setup-node@v2.1.4
         with:
-          name: cdk.out
-          path: cdk.out
+          node-version: 14
+      - run: npm install -g aws-cdk typescript ts-node
+      - run: npm install
+      - run: npm --prefix ./lambda/ses-password-lambda install --production=true
+      - run: npm run build
+      - run: cdk synth "*" --context isTaskcatRun=true --output cdk.out
       - uses: actions/setup-python@v2
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
