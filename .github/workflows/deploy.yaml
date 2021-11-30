@@ -21,9 +21,15 @@ jobs:
 
       - uses: actions/setup-node@v2.1.4
         with:
-          node-version: 12
-      - run: npm install
+          node-version: 14
       - run: npm install -g aws-cdk
+      - run: npm install
+      - run: npm --prefix ./lambda/ses-password-lambda install --production=true
+      - run: npm run build
       - run: >-
-          cdk deploy
-          --require-approval never
+          wget https://github.com/aws/aws-sam-cli/releases/download/sam-cli-beta-cdk/aws-sam-cli-linux-x86_64.zip -P /tmp/
+          && unzip /tmp/aws-sam-cli-linux-x86_64.zip -d /tmp/sam-installation
+          && /tmp/sam-installation/install
+      - run: sam-beta-cdk build
+      - run: sam deploy
+      - run: cdk deploy -a .aws-sam/build
